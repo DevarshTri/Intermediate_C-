@@ -1,0 +1,286 @@
+------------ Exception Handling ----------------------
+//Console.WriteLine("Enter First Number : ");
+//int num1 = int.Parse(Console.ReadLine());
+
+//Console.WriteLine("Enter Second Number : ");
+//int num2 = int.Parse(Console.ReadLine());
+//try
+//{
+//    int result = num1 / num2;
+//    Console.WriteLine("Result :" + result);
+//}
+//catch(DivideByZeroException ex) 
+//{
+//    Console.WriteLine("Number is not divided by zero");
+//    Console.WriteLine(ex.Message);
+//}
+
+//Console.WriteLine("Remaining statements");
+//Console.WriteLine("Remaining statements");
+//Console.WriteLine("Remaining statements");
+
+// index exception
+//int[] arr = new int[3];
+//try
+//{
+//    arr[0] = 1;
+//    arr[1] = 2;
+//    arr[2] = 3;
+//    arr[3] = 4;
+
+//    foreach (var item in arr)
+//    {
+//        Console.WriteLine(item);
+//    }
+//}
+//catch (IndexOutOfRangeException ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
+
+//Null Exception
+//try
+//{
+//    string name = null;
+//    Console.WriteLine(name.Length);
+//}
+//catch (NullReferenceException ex)  
+//{
+//    Console.WriteLine(ex.Message);
+//}
+
+//Format Exception
+
+//Console.WriteLine("Enter Number : ");
+//string number = Console.ReadLine();
+//try
+//{
+//    int num = int.Parse(number);
+//    Console.WriteLine("Number is : " + num);
+//}
+//catch (FormatException ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
+
+//throw keyword
+//Console.WriteLine("Enter Your Age");
+//int age = int.Parse(Console.ReadLine());
+//try
+//{
+//    if (age >= 18)
+//    {
+//        Console.WriteLine("You are eligible to vote");
+//    }
+//    else
+//    {
+//        throw new Exception("You are not eligible to vote");
+//    }
+//}
+//catch (Exception ex)
+//{
+//    Console.WriteLine(ex.Message);
+//}
+
+int acc_balance = 5000;
+int withdrawal_amount = 30000;
+try
+{
+    if (acc_balance < withdrawal_amount)
+    {
+        throw new Exception("Insufficient Balance");
+    }
+    else
+    {
+        acc_balance = acc_balance - withdrawal_amount;
+        Console.WriteLine($"{acc_balance}");
+    }
+}
+catch (Exception ex)
+{
+    Console.WriteLine(ex.Message );
+}
+
+-------------------------- Delegates -----------------------------------
+ public delegate void Details(string name);
+ internal class Program
+ {
+     public void PrintYourName(string name) 
+     {
+         Console.WriteLine("Your name is: "+name);
+     }
+     static void Main(string[] args)
+     {
+         Console.WriteLine("Enter Your Name:");
+         string name = Console.ReadLine();
+         
+         Program p = new Program();
+         Details details = new Details(p.PrintYourName);
+         details.Invoke(name);
+         details(name);
+         Console.ReadLine();
+     }
+ }
+
+public delegate void Calc(int a , int b);
+internal class Program
+{
+    public void Addition(int a , int b)
+    {
+        int result = a + b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Substraction(int a, int b)
+    {
+        int result = a - b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Multiplication(int a, int b)
+    {
+        int result = a * b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Division(int a, int b)
+    {
+        int result = a / b;
+        Console.WriteLine("Result is:" + result);
+    }
+    static void Main(string[] args)
+    {
+        Program p = new Program();
+        Calc obj = new Calc(p.Addition);
+        obj.Invoke(50, 50);
+        obj = p.Substraction;
+        obj(50, 10);
+        obj = p.Multiplication;
+        obj.Invoke(50, 90);
+        obj = p.Division;
+        obj(50, 10);
+        Console.ReadLine();
+    }
+}
+--------------------------- Single Cast Delegates ------------------------------------
+ public delegate void Calc(int n1 , int n2);
+  public class Program
+  {
+      public static void Addition(int a, int b)
+      {
+          int c = a + b;
+          Console.WriteLine(c);
+      }
+      static void Main(string[] args)
+      {
+          Calc calc = new Calc(Addition);
+          calc.Invoke(55, 96);
+          Console.ReadLine();
+      }
+  }
+-------------------------------- Multiple Delegates --------------------------------
+public delegate void Calc(int a, int b);
+public delegate void show_d();
+public delegate void Calc2(int num);
+public class Program
+{
+    public static void Square(int num)
+    {
+        int square = num * num;
+        Console.WriteLine(square);
+    }
+    public static void Cube(int num)
+    {
+        int cube = num * num * num;
+        Console.WriteLine(cube);
+    }
+    public static void Show()
+    {
+        Console.WriteLine("This is show method");
+    }
+    public void Addition(int a, int b)
+    {
+        int result = a + b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Substraction(int a, int b)
+    {
+        int result = a - b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Multiplication(int a, int b)
+    {
+        int result = a * b;
+        Console.WriteLine("Result is:" + result);
+    }
+    public void Division(int a, int b)
+    {
+        int result = a / b;
+        Console.WriteLine("Result is:" + result);
+    }
+    static void Main(string[] args)
+    {
+        //show_d sd = new show_d(Show);
+        //sd.Invoke();
+        Calc2 calc2 = new Calc2(Square);
+        calc2.Invoke(55);
+        calc2 = Cube;
+        calc2.Invoke(55);
+        Console.ReadLine();
+    }
+}
+-------------------------------- Multicast Delegates --------------------------------
+ public delegate void Calc(int a, int b);
+ public delegate void show_d();
+ public delegate void Calc2(int num);
+ public class Program
+ {
+     public static void Square(int num)
+     {
+         int square = num * num;
+         Console.WriteLine(square);
+     }
+     public static void Cube(int num)
+     {
+         int cube = num * num * num;
+         Console.WriteLine(cube);
+     }
+     public static void Show()
+     {
+         Console.WriteLine("This is show method");
+     }
+     public void Addition(int a, int b)
+     {
+         int result = a + b;
+         Console.WriteLine("Result is:" + result);
+     }
+     public void Substraction(int a, int b)
+     {
+         int result = a - b;
+         Console.WriteLine("Result is:" + result);
+     }
+     public void Multiplication(int a, int b)
+     {
+         int result = a * b;
+         Console.WriteLine("Result is:" + result);
+     }
+     public void Division(int a, int b)
+     {
+         int result = a / b;
+         Console.WriteLine("Result is:" + result);
+     }
+     static void Main(string[] args)
+     {
+         Program program = new Program();
+         //show_d sd = new show_d(Show);
+         //sd.Invoke();
+         //Calc2 calc2 = new Calc2(Square);
+         //calc2.Invoke(55);
+         //calc2 = Cube;
+         //calc2.Invoke(55);
+
+         Calc calc = new Calc(program.Addition);
+         calc += program.Substraction;
+         calc += program.Multiplication;
+         calc -= program.Division;
+         calc.Invoke(55, 55);
+         Console.ReadLine();
+     }
+ }
