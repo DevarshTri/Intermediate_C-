@@ -10,25 +10,26 @@ namespace intermediate_C_
     public delegate void my_delegate(int num); 
     public class Program
     {
-        public static void MyMethod(my_delegate del ,int a)
+        public static void MyMethod(int a)
         {
             a += 10;
-            del.Invoke(a);
+            
         }
         static void Main(string[] args)
         {
-            Program.MyMethod(delegate (int b)
-            {
-                b += 10;
-                Console.WriteLine(b);
-            }, 5);
-    
-            //my_delegate md = delegate (int num)
+            //Program.MyMethod(delegate (int b)
             //{
-            //    num += 10;
-            //    return num;
-            //};
-            //Console.WriteLine(md.Invoke(52));
+            //    b += 10;
+            //    Console.WriteLine(b);
+            //}, 5);
+             
+            my_delegate md = (num) =>
+            {
+                num += 10;
+                
+                Console.WriteLine(num);
+            };
+            md.Invoke(52);
             Console.ReadLine();
         }
     }
