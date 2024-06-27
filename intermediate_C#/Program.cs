@@ -22,7 +22,7 @@ namespace intermediate_C_
             //    b += 10;
             //    Console.WriteLine(b);
             //}, 5);
-             
+
             my_delegate md = (num) =>
             {
                 num += 10;
